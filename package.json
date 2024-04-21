@@ -4,7 +4,8 @@
   "description": "Admin panel for game server on Express.js",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
