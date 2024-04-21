@@ -29,11 +29,11 @@ const deleteGame = async (req, res) => {
 };
 
 const addGameController = async (req, res) => {
-  // Проверяем, есть ли уже в списке игра с таким же названием
+  //? Check, is there a game with the same name
   req.isNew = !Boolean(req.games.find((item) => item.title === req.body.title));
-  // Если игра, которую хотим добавить, новая (её не было в списке)
+  //? If the game we want to add is new (it wasn't in the list)
   if (req.isNew) {
-    // Добавляем объект с данными о новой игре
+    //? Add obj with new game
     const inArray = req.games.map((item) => Number(item.id));
     let maximalId;
     if (inArray.length > 0) {
@@ -48,7 +48,7 @@ const addGameController = async (req, res) => {
       link: req.body.link,
       description: req.body.description,
     };
-    // Добавляем данные о новой игре в список с другими играми
+    //? Add data new game with old games
     req.games = [...req.games, req.updatedObject];
   } else {
     res.status(400);
@@ -58,12 +58,11 @@ const addGameController = async (req, res) => {
     });
     return;
   }
-  // Записываем обновлённый список игр в файл
+  //? Write update list game
   await writeData("./utils/data/games.json", req.games);
-  // В качестве ответа отправляем объект с двумя полями
   res.send({
-    games: req.games, // Обновлённый список со всеми играми
-    updated: req.updatedObject, // Новая добавленная игра
+    games: req.games,
+    updated: req.updatedObject,
   });
 };
 
